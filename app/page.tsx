@@ -100,6 +100,61 @@ function HeroSection() {
   );
 }
 
+function PhilosophySection() {
+  const ref = useRef<HTMLElement>(null);
+  const { scrollYProgress } = useScroll({
+    target: ref,
+    offset: ["start end", "end start"],
+  });
+  const imgY = useTransform(scrollYProgress, [0, 1], ["-20%", "20%"]);
+
+  return (
+    <section ref={ref} className="relative min-h-[80vh] overflow-hidden">
+      {/* Parallax background */}
+      <motion.div className="absolute inset-[-20%]" style={{ y: imgY }}>
+        <Image
+          src="/images/signature.jpg"
+          alt="Vue depuis le restaurant au coucher du soleil"
+          fill
+          className="object-cover"
+        />
+      </motion.div>
+      <div className="absolute inset-0 bg-dark/50" />
+
+      {/* Content */}
+      <div className="relative z-10 flex min-h-[80vh] items-center px-6 lg:px-12">
+        <div className="mx-auto max-w-3xl text-center">
+          <motion.p
+            className="label mb-6 text-gold"
+            initial={{ opacity: 0 }}
+            whileInView={{ opacity: 1 }}
+            viewport={{ once: true }}
+            transition={{ duration: 0.6 }}
+          >
+            Notre philosophie
+          </motion.p>
+          <AnimatedText
+            text="Nous croyons que les meilleurs repas sont ceux où tout semble avoir été pensé pour vous."
+            tag="h2"
+            className="font-heading text-4xl text-cream lg:text-6xl"
+            delay={0.1}
+          />
+          <motion.p
+            className="mx-auto mt-8 max-w-xl text-base leading-relaxed text-cream/80"
+            initial={{ opacity: 0, y: 20 }}
+            whileInView={{ opacity: 1, y: 0 }}
+            viewport={{ once: true }}
+            transition={{ duration: 0.8, delay: 0.8 }}
+          >
+            Votre table préférée, votre vin habituel, votre moment favori de
+            la journée. C&rsquo;est notre engagement.
+          </motion.p>
+        </div>
+      </div>
+    </section>
+  );
+}
+
 function GalleryImage({
   src,
   alt,
@@ -216,45 +271,8 @@ export default function Home() {
         </div>
       </section>
 
-      {/* ===== SIGNATURE / PHILOSOPHIE ===== */}
-      <section className="relative min-h-[80vh] overflow-hidden">
-        <ParallaxImage
-          src="/images/signature.jpg"
-          alt="Vue depuis le restaurant au coucher du soleil"
-          className="absolute inset-0"
-          speed={0.25}
-          overlay
-        />
-        <div className="relative z-10 flex min-h-[80vh] items-center px-6 lg:px-12">
-          <div className="mx-auto max-w-3xl text-center">
-            <motion.p
-              className="label mb-6 text-gold"
-              initial={{ opacity: 0 }}
-              whileInView={{ opacity: 1 }}
-              viewport={{ once: true }}
-              transition={{ duration: 0.6 }}
-            >
-              Notre philosophie
-            </motion.p>
-            <AnimatedText
-              text="Nous croyons que les meilleurs repas sont ceux où tout semble avoir été pensé pour vous."
-              tag="h2"
-              className="font-heading text-4xl text-cream lg:text-6xl"
-              delay={0.1}
-            />
-            <motion.p
-              className="mx-auto mt-8 max-w-xl text-base leading-relaxed text-cream/80"
-              initial={{ opacity: 0, y: 20 }}
-              whileInView={{ opacity: 1, y: 0 }}
-              viewport={{ once: true }}
-              transition={{ duration: 0.8, delay: 0.8 }}
-            >
-              Votre table préférée, votre vin habituel, votre moment favori de
-              la journée. C&rsquo;est notre engagement.
-            </motion.p>
-          </div>
-        </div>
-      </section>
+      {/* ===== PHILOSOPHIE ===== */}
+      <PhilosophySection />
 
       {/* ===== EXPERIENCE CARDS ===== */}
       <section className="px-6 py-28 lg:px-12">
